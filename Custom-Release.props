@@ -3,12 +3,20 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
     <Debug-Suffix />
+    <GraphicsEngineDebugSuffix>r</GraphicsEngineDebugSuffix>
+    <CMakeInstallConfig>RelWithDebInfo</CMakeInstallConfig>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />
   <ItemGroup>
     <BuildMacro Include="Debug-Suffix">
       <Value>$(Debug-Suffix)</Value>
+    </BuildMacro>
+    <BuildMacro Include="GraphicsEngineDebugSuffix">
+      <Value>$(GraphicsEngineDebugSuffix)</Value>
+    </BuildMacro>
+    <BuildMacro Include="CMakeInstallConfig">
+      <Value>$(CMakeInstallConfig)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>

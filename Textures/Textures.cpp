@@ -140,7 +140,7 @@ class application {
             {
             case textured_triangle:
             {
-                Diligent::Uint32 offset = 0;
+                Diligent::Uint64 offset = 0;
                 std::array pBuffs = { m_TriangleVertexBuffer.RawPtr() };
                 m_pImmediateContext->SetVertexBuffers(0, pBuffs.size(), pBuffs.data(), &offset, Diligent::RESOURCE_STATE_TRANSITION_MODE_TRANSITION, Diligent::SET_VERTEX_BUFFERS_FLAG_RESET);
 
@@ -154,7 +154,7 @@ class application {
             case textured_quad:
             case combined_textures:
             {
-                Diligent::Uint32 offset = 0;
+                Diligent::Uint64 offset = 0;
                 std::array pBuffs = { m_QuadVertexBuffer.RawPtr() };
                 m_pImmediateContext->SetVertexBuffers(0, pBuffs.size(), pBuffs.data(), &offset, Diligent::RESOURCE_STATE_TRANSITION_MODE_TRANSITION, Diligent::SET_VERTEX_BUFFERS_FLAG_RESET);
                 m_pImmediateContext->SetIndexBuffer(m_QuadIndexBuffer, 0, Diligent::RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
@@ -169,7 +169,7 @@ class application {
                 break;
             case rainbow_textured_quad:
             {
-                Diligent::Uint32 offset = 0;
+                Diligent::Uint64 offset = 0;
                 std::array pBuffs = { m_QuadRainbowVertexBuffer.RawPtr() };
                 m_pImmediateContext->SetVertexBuffers(0, pBuffs.size(), pBuffs.data(), &offset, Diligent::RESOURCE_STATE_TRANSITION_MODE_TRANSITION, Diligent::SET_VERTEX_BUFFERS_FLAG_RESET);
                 m_pImmediateContext->SetIndexBuffer(m_QuadIndexBuffer, 0, Diligent::RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
@@ -354,7 +354,7 @@ class application {
         VertBuffDesc.Name = "Triangle vertex buffer";
         VertBuffDesc.Usage = USAGE_IMMUTABLE;
         VertBuffDesc.BindFlags = BIND_VERTEX_BUFFER;
-        VertBuffDesc.uiSizeInBytes = vertices.size() * sizeof(decltype(vertices)::value_type);
+        VertBuffDesc.Size = vertices.size() * sizeof(decltype(vertices)::value_type);
         BufferData VBData;
         VBData.pData = vertices.data();
         VBData.DataSize = vertices.size() * sizeof(decltype(vertices)::value_type);
@@ -375,7 +375,7 @@ class application {
         VertBuffDesc.Name = "Quad vertex buffer";
         VertBuffDesc.Usage = USAGE_IMMUTABLE;
         VertBuffDesc.BindFlags = BIND_VERTEX_BUFFER;
-        VertBuffDesc.uiSizeInBytes = vertices.size() * sizeof(decltype(vertices)::value_type);
+        VertBuffDesc.Size = vertices.size() * sizeof(decltype(vertices)::value_type);
         BufferData VBData;
         VBData.pData = vertices.data();
         VBData.DataSize = vertices.size() * sizeof(decltype(vertices)::value_type);
@@ -397,7 +397,7 @@ class application {
         VertBuffDesc.Name = "Quad Rainbow vertex buffer";
         VertBuffDesc.Usage = USAGE_IMMUTABLE;
         VertBuffDesc.BindFlags = BIND_VERTEX_BUFFER;
-        VertBuffDesc.uiSizeInBytes = rainbow_vertices.size() * sizeof(decltype(rainbow_vertices)::value_type);
+        VertBuffDesc.Size = rainbow_vertices.size() * sizeof(decltype(rainbow_vertices)::value_type);
         BufferData VBData;
         VBData.pData = rainbow_vertices.data();
         VBData.DataSize = rainbow_vertices.size() * sizeof(decltype(rainbow_vertices)::value_type);
@@ -415,7 +415,7 @@ class application {
         IndBuffDesc.Name = "Quad index buffer";
         IndBuffDesc.Usage = USAGE_IMMUTABLE;
         IndBuffDesc.BindFlags = BIND_INDEX_BUFFER;
-        IndBuffDesc.uiSizeInBytes = indices.size() * sizeof(decltype(indices)::value_type);
+        IndBuffDesc.Size = indices.size() * sizeof(decltype(indices)::value_type);
         BufferData IBData;
         IBData.pData = indices.data();
         IBData.DataSize = indices.size() * sizeof(decltype(indices)::value_type);

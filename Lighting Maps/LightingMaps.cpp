@@ -195,7 +195,7 @@ class application {
         {
             m_pImmediateContext->SetPipelineState(m_pCubePSO);
 
-            Diligent::Uint32 offset = 0;
+            Diligent::Uint64 offset = 0;
             std::array pBuffs = { m_CubeVertexBuffer.RawPtr() };
             m_pImmediateContext->SetVertexBuffers(0, pBuffs.size(), pBuffs.data(), &offset, Diligent::RESOURCE_STATE_TRANSITION_MODE_TRANSITION, Diligent::SET_VERTEX_BUFFERS_FLAG_RESET);
 
@@ -418,19 +418,19 @@ class application {
         CBDesc.CPUAccessFlags = CPU_ACCESS_WRITE;
 
         CBDesc.Name = "VS constants CB";
-        CBDesc.uiSizeInBytes = sizeof(Constants);
+        CBDesc.Size = sizeof(Constants);
         m_pDevice->CreateBuffer(CBDesc, nullptr, &m_VSConstants);
 
         CBDesc.Name = "PS Light CB";
-        CBDesc.uiSizeInBytes = sizeof(Light);
+        CBDesc.Size = sizeof(Light);
         m_pDevice->CreateBuffer(CBDesc, nullptr, &m_PSLight);
 
         CBDesc.Name = "PS Material CB";
-        CBDesc.uiSizeInBytes = sizeof(Material);
+        CBDesc.Size = sizeof(Material);
         m_pDevice->CreateBuffer(CBDesc, nullptr, &m_PSMaterial);
 
         CBDesc.Name = "PS Camera CB";
-        CBDesc.uiSizeInBytes = sizeof(Camera::CB);
+        CBDesc.Size = sizeof(Camera::CB);
         m_pDevice->CreateBuffer(CBDesc, nullptr, &m_PSCamera);
 
     }
@@ -493,7 +493,7 @@ class application {
         VertBuffDesc.Name = "Cube vertex buffer";
         VertBuffDesc.Usage = USAGE_IMMUTABLE;
         VertBuffDesc.BindFlags = BIND_VERTEX_BUFFER;
-        VertBuffDesc.uiSizeInBytes = vertices.size() * sizeof(decltype(vertices)::value_type);
+        VertBuffDesc.Size = vertices.size() * sizeof(decltype(vertices)::value_type);
         BufferData VBData;
         VBData.pData = vertices.data();
         VBData.DataSize = vertices.size() * sizeof(decltype(vertices)::value_type);

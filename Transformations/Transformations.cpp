@@ -134,7 +134,7 @@ class application {
             m_pImmediateContext->CommitShaderResources(m_pCombinedSRB, Diligent::RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
 
             {
-                Diligent::Uint32 offset = 0;
+                Diligent::Uint64 offset = 0;
                 std::array pBuffs = { m_QuadVertexBuffer.RawPtr() };
                 m_pImmediateContext->SetVertexBuffers(0, pBuffs.size(), pBuffs.data(), &offset, Diligent::RESOURCE_STATE_TRANSITION_MODE_TRANSITION, Diligent::SET_VERTEX_BUFFERS_FLAG_RESET);
                 m_pImmediateContext->SetIndexBuffer(m_QuadIndexBuffer, 0, Diligent::RESOURCE_STATE_TRANSITION_MODE_TRANSITION);
@@ -181,7 +181,7 @@ class application {
 
             BufferDesc CBDesc;
             CBDesc.Name = "VS constants CB";
-            CBDesc.uiSizeInBytes = sizeof(glm::mat4);
+            CBDesc.Size = sizeof(glm::mat4);
             CBDesc.Usage = USAGE_DYNAMIC;
             CBDesc.BindFlags = BIND_UNIFORM_BUFFER;
             CBDesc.CPUAccessFlags = CPU_ACCESS_WRITE;
@@ -255,7 +255,7 @@ class application {
         VertBuffDesc.Name = "Quad vertex buffer";
         VertBuffDesc.Usage = USAGE_IMMUTABLE;
         VertBuffDesc.BindFlags = BIND_VERTEX_BUFFER;
-        VertBuffDesc.uiSizeInBytes = vertices.size() * sizeof(decltype(vertices)::value_type);
+        VertBuffDesc.Size = vertices.size() * sizeof(decltype(vertices)::value_type);
         BufferData VBData;
         VBData.pData = vertices.data();
         VBData.DataSize = vertices.size() * sizeof(decltype(vertices)::value_type);
@@ -274,7 +274,7 @@ class application {
         IndBuffDesc.Name = "Quad index buffer";
         IndBuffDesc.Usage = USAGE_IMMUTABLE;
         IndBuffDesc.BindFlags = BIND_INDEX_BUFFER;
-        IndBuffDesc.uiSizeInBytes = indices.size() * sizeof(decltype(indices)::value_type);
+        IndBuffDesc.Size = indices.size() * sizeof(decltype(indices)::value_type);
         BufferData IBData;
         IBData.pData = indices.data();
         IBData.DataSize = indices.size() * sizeof(decltype(indices)::value_type);
