@@ -1,0 +1,74 @@
+
+struct Light {
+    float3 position;
+    float outerCutOff;
+    float3 direction;
+    float cutOff;
+
+    float3 ambient;
+    float3 diffuse;
+    float3 specular;
+};
+
+Texture2D    diffuse_texture;
+Texture2D    specular_texture;
+SamplerState diffuse_sampler;
+
+struct Material {
+    float1 shininess;
+};
+
+cbuffer Lights {
+    Light light;
+};
+
+cbuffer Materials {
+    Material material;
+};
+
+cbuffer Camera {
+    float3 view_position;
+};
+
+
+struct PSInput
+{
+    float4 Pos     : SV_POSITION;
+    float3 FragPos : POSITION0;
+    float3 Normal  : NORMAL0;
+    float2 UV      : TEXTURE0;
+};
+
+struct PSOutput
+{w
+    float4 Color : SV_TARGET;
+};
+
+void main(in  PSInput  PSIn,
+    out PSOutput PSOut)
+{
+    float3 lightDir = normalize(light.position - PSIn.FragPos);
+    float theta = dot(lightDir, normalize(-light.direction));
+    float epsilon = light.cutOff - light.outerCutOff;
+    float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
+
+    float3 material_diffuse = diffuse_texture.Sample(diffuse_sampler, PSIn.UV); 
+    float3 material_specular = specular_texture.Sample(diffuse_sampler, PSIn.UV);
+
+    // ambient
+    float3 ambient = light.ambient * material_diffuse;
+
+    // diffuse 
+    float3 norm = normalize(PSIn.Normal);
+    float diff = max(dot(norm, lightDir), 0.0);
+    float3 diffuse = light.diffuse * (diff * material_diffuse);
+
+    // specular
+    float3 viewDir = normalize(view_position - PSIn.FragPos);
+    float3 reflectDir = reflect(-lightDir, norm);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    float3 specular = light.specular * (spec * material_specular);
+
+    float3 result = ambient + intensity * (diffuse + specular);
+    PSOut.Color = float4(result, 1.0);
+}

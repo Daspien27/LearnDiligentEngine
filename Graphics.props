@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <Debug-Suffix>
+    </Debug-Suffix>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(DILIGENT_ENGINE_INSTALL_DIR)\$(PlatformTarget)-$(Configuration)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(DILIGENT_ENGINE_INSTALL_DIR)\$(PlatformTarget)-$(Configuration)\lib\DiligentCore\$(Configuration);$(SolutionDir)ThirdParty\Diligent\$(PlatformTarget)-$(Configuration)\lib\DiligentTools\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>DiligentCore.lib;GenericCodeGen$(Debug-Suffix).lib;glew-static.lib;glslang$(Debug-Suffix).lib;GraphicsEngineD3D11_64$(Debug-Suffix).lib;GraphicsEngineD3D12_64$(Debug-Suffix).lib;GraphicsEngineOpenGL_64$(Debug-Suffix).lib;GraphicsEngineVk_64$(Debug-Suffix).lib;HLSL$(Debug-Suffix).lib;MachineIndependent$(Debug-Suffix).lib;OGLCompiler$(Debug-Suffix).lib;OSDependent$(Debug-Suffix).lib;spirv-cross-core$(Debug-Suffix).lib;SPIRV-Tools-opt.lib;SPIRV-Tools.lib;SPIRV$(Debug-Suffix).lib;DiligentTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="Debug-Suffix">
+      <Value>$(Debug-Suffix)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

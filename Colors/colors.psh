@@ -1,0 +1,21 @@
+cbuffer Colors
+{
+    float3 object_color;
+    float3 light_color;
+};
+
+struct PSInput
+{
+    float4 Pos   : SV_POSITION;
+};
+
+struct PSOutput
+{
+    float4 Color : SV_TARGET;
+};
+
+void main(in  PSInput  PSIn,
+    out PSOutput PSOut)
+{
+    PSOut.Color = float4(light_color * object_color, 1.0);
+}
